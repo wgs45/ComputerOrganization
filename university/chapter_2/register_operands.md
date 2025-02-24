@@ -21,3 +21,21 @@ Arithmetics instructions use register operands
 $s0, $s1, ..., $s7 for saved variables. Ex: $t0 = g + h
 $t0, $t1, ..., $t9 for temporary values. Ex: $t1 = i + j
 ```
+
+# Register Operand example
+
+- C code:
+
+```
+f = (g + h) - (i + j);
+```
+
+(f, g, h, i, j assigned to $s0, $s1, $s2, $s3, $s4, respectively)
+
+- Compiled MIPS Code:
+
+```
+add $t0, $s1, $s2 # $t0 = g + h
+add $t1m $s3, $s4 # $t1 = i + j
+sub $s0, $t0, $t1 # $s0 = $t0 - $t1
+```
