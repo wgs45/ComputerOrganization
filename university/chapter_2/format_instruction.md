@@ -1,37 +1,62 @@
-# MIPS Instructions
+# 🌟 MIPS Instructions
 
 ---
 
-# MIPS R-format instructions
+## 🎯 MIPS R-Format Instructions
 
-| op     | rs     | rt     | rd    | shamt  | fucnt  |
-| ------ | ------ | ------ | ----- | ------ | ------ |
-| 6 bits | 5 bits | 5 bits | 5bits | 5 bits | 6 bits |
+### 📝 Instruction Format
 
-## Instruction fields
+| 🔢 op (6 bits) | 🔢 rs (5 bits) | 🔢 rt (5 bits) | 🔢 rd (5 bits) | 🔢 shamt (5 bits) | 🔢 funct (6 bits) |
+| -------------- | -------------- | -------------- | -------------- | ----------------- | ----------------- |
 
-- op: operation code (opcode)
-- rs: first register source operand
-- rt: second register source operand
-- rd: register destination operand
-- shamt: shift amount
-- funct: function code (extends opcode)
+### 📌 Fields Description
 
-# MIPS I-format instructions
+- **🟢 op**: Operation code (opcode)
+- **🔵 rs**: First source register operand
+- **🟣 rt**: Second source register operand
+- **🟠 rd**: Destination register operand
+- **🟡 shamt**: Shift amount
+- **🔴 funct**: Function code (extends opcode)
 
-| op     | rs     | rt     | constant or address |
-| ------ | ------ | ------ | ------------------- |
-| 6 bits | 5 bits | 5 bits | 16 bits             |
+---
 
-## Immediate arithmetic and load/store instructions
+## 🔥 MIPS I-Format Instructions
 
-- rt: destination register number for lw, or source register number for sw
-- Constant: -2^15 to +2^15 - 1
-- Address: offset added to base address in rs
+### 📝 Instruction Format
 
-## Design principle 4: Good design demands good compromises
+| 🔢 op (6 bits) | 🔢 rs (5 bits) | 🔢 rt (5 bits) | 🏠 Constant/Address (16 bits) |
+| -------------- | -------------- | -------------- | ----------------------------- |
 
-- Different formats complicate decoding, but allow 32-bit instructions uniformly
-- Keeps formats as similar as possible
+### 📌 Fields Description
 
-## Examples
+- **🟢 op**: Operation code (opcode)
+- **🔵 rs**: Source register operand
+- **🟣 rt**:
+  - Destination register for **load word (lw)**
+  - Source register for **store word (sw)**
+- **🔢 Constant**: Immediate value (_-2^15 to +2^15 - 1_)
+- **🏠 Address**: Offset added to base address in `rs`
+
+---
+
+## 💡 Design Principle: Good Design Demands Good Compromises
+
+- ✨ Different formats complicate decoding but maintain uniform **32-bit instruction length**.
+- ✨ Keeping formats as **similar as possible** simplifies understanding and implementation.
+
+---
+
+## 🏆 Examples
+
+🔹 **R-Format Example:**
+
+```assembly
+add $t0, $t1, $t2   # $t0 = $t1 + $t2
+```
+
+🔹 **I-Format Example:**
+
+```assembly
+lw $t0, 0($t1)   # Load word from memory address in $t1 into $t0
+sw $t0, 4($t1)   # Store word from $t0 into memory address in $t1 + 4
+```
