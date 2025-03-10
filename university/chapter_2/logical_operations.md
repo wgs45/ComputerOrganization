@@ -1,12 +1,12 @@
 # 🌟 **MIPS Syntax Guide**
 
-MIPS (Microprocessor without Interlocked Pipeline Stages) is a **RISC architecture** where you work with low-level instructions.
+MIPS (Microprocessor without Interlocked Pipeline Stages) is a **RISC architecture** designed for efficient, low-level instruction execution. 🚀
 
 ---
 
 ## 🔲 **Logical Operations**
 
-Logical operations are essential for **bitwise manipulations**. These operations let you interact with individual bits of data, which is crucial for low-level programming.
+Logical operations enable **bitwise manipulations**, which are crucial for low-level programming.
 
 | **Operation**   | **C** | **Java** | **MIPS**      |
 | --------------- | ----- | -------- | ------------- |
@@ -16,105 +16,210 @@ Logical operations are essential for **bitwise manipulations**. These operations
 | **Bitwise OR**  |       |          | `or`, `ori`   |
 | **Bitwise NOT** | `~`   | `~`      | `nor`         |
 
-- **Shift operations**: Useful for manipulating groups of bits.
-- **AND operations**: Mask specific bits by selecting and clearing others to 0.
-- **OR operations**: Change 0s to 1s and vice versa. Also, `NOR` helps to invert the bits.
+### ✨ Key Points
+
+- **Shift operations** manipulate bit positions efficiently.
+- **AND operations** mask bits by selecting specific ones.
+- **OR operations** toggle bits, and `NOR` inverts them.
 
 ---
 
 ## 🔁 **Shift Operations**
 
-Shift operations work by **moving bits left or right**, with the flexibility of filling the vacated positions with zeros. This is useful for multiplication and division by powers of 2. 🚀
+Shift operations move bits left or right, filling vacated positions with **zeros**. Useful for **multiplication and division** by powers of 2. 🔢
 
 | 🔢 **op** (6 bits) | 🔢 **rs** (5 bits) | 🔢 **rt** (5 bits) | 🔢 **rd** (5 bits) | 🔢 **shamt** (5 bits) | 🔢 **funct** (6 bits) |
 | ------------------ | ------------------ | ------------------ | ------------------ | --------------------- | --------------------- |
 
-- **`shamt`**: This tells you how many **positions** to shift (the shift amount).
-- **Shift Left Logical (`sll`)**:
-  - Shifts **left** and fills the vacated bits with **0s**.
-  - **Effect**: Shift left by **i** bits = multiply by **2^i**.
-  - Example: `sll $t0, $t1, 2` (Multiply `$t1` by 4 and store in `$t0`).
-- **Shift Right Logical (`srl`)**:
-  - Shifts **right** and fills with **0s**.
-  - **Effect**: Shift right by **i** bits = divide by **2^i** (for **unsigned numbers**).
-  - Example: `srl $t0, $t1, 2` (Divide `$t1` by 4 and store in `$t0`).
+### 🔹 **Shift Left Logical (`sll`)**
+
+- Moves bits **left**, filling with **0s**.
+- Effect: Multiply by **2^i**.
+- **Example:** `sll $t0, $t1, 2` → `$t1 * 4 → $t0`
+
+### 🔹 **Shift Right Logical (`srl`)**
+
+- Moves bits **right**, filling with **0s**.
+- Effect: Divide by **2^i** (**unsigned numbers**).
+- **Example:** `srl $t0, $t1, 2` → `$t1 / 4 → $t0`
+
+Example:
+
+```assembly
+sll $t0, $t1, 2  # Shift left logical: $t0 = $t1 * 4 (2^2)
+srl $t0, $t1, 2  # Shift right logical: $t0 = $t1 / 4 (2^2)
+```
 
 ---
 
 ## 🛠️ **AND Operations**
 
-The **AND** operation is great for **masking** certain bits in a word, allowing you to select specific bits while clearing others. It’s like having a **bit-filtering tool**! 🧰
-
-### 🔑 Key Points
-
-- **Select bits** while clearing others to **0**.
-- **Mask** "conceals" the bits you're not interested in.
+Great for **masking** bits. 🧰
 
 ```assembly
-and $t0, $t1, $t2  # Performs $t0 = $t1 & $t2
+and $t0, $t1, $t2  # Performs bitwise AND: $t0 = $t1 & $t2
 ```
 
-This instruction stores the result of the bitwise AND between registers `$t1` and `$t2` in `$t0`. 💡
+- **AND** selects specific bits, clearing others.
+- Useful for bit filtering and condition checks.
 
 ---
 
 ## 🔄 **OR Operations**
 
-The **OR** operation is used to **invert** bits. It flips 0 to 1 and 1 to 0. Think of it like a **toggle switch**! 🔄
-
-- **MIPS has a powerful instruction called `NOR`**:
-  - **a NOR b** = **NOT (a OR b)**.
-  - **a NOR 0** = **NOT (a OR 0)** = **NOT a**.  
-    This is a **3-operand instruction**!
+**OR** flips **0s to 1s**. Think of it like a **toggle switch**! 🔄
 
 ```assembly
-nor $t0, $t1, $zero  # $t0 = NOT $t1 (bitwise negation)
+or $t0, $t1, $t2  # Bitwise OR: $t0 = $t1 | $t2
+nor $t0, $t1, $zero  # Bitwise NOT: $t0 = ~($t1)
 ```
 
-This example takes the **bitwise negation** of `$t1` and stores it in `$t0`. So, it **inverts** every bit in `$t1`! 🔥
+- **`NOR`** = **NOT (A OR B)**
+- Used for bitwise negation (`NOT` operation in MIPS).
 
 ---
 
 ## ⚖️ **Conditional Operations**
 
-Conditional operations allow you to **branch** to a specific instruction depending on whether a condition is true or false. It’s like **decision-making** in programming! 💡
+Enable **decision-making** by branching to instructions based on conditions. 💡
 
-1. **Branch if Equal (BEQ)**:
-
-   ```assembly
-   beq $t0, $t1, L1  # if ($t0 == $t1) branch to L1
-   ```
-
-   - If the contents of registers `$t0` and `$t1` are **equal**, jump to label `L1`.
-   - Otherwise, continue with the next instruction.
-
-2. **Branch if Not Equal (BNE)**:
+1. **Branch if Equal (`beq`)**
 
    ```assembly
-   bne $t0, $t1, L1  # if ($t0 != $t1) branch to L1
+   beq $t0, $t1, L1  # if ($t0 == $t1) jump to L1
    ```
 
-   - If `$t0` is **not equal** to `$t1`, jump to label `L1`.
-
-3. **Unconditional Jump**:
+2. **Branch if Not Equal (`bne`)**
 
    ```assembly
-   j L1  # jump to L1 (always)
+   bne $t0, $t1, L1  # if ($t0 != $t1) jump to L1
    ```
 
-   - This is an **unconditional jump** that goes straight to `L1`.
+3. **Unconditional Jump (`j`)**
+
+   ```assembly
+   j L1  # Jump to L1
+   ```
 
 ---
 
 ## 🏃 **Jumping to Labels**
 
-Sometimes you need to **move around in your code** with jumps. These jump instructions make your program more flexible and efficient. They allow you to skip around without following the usual sequential order! 🏃‍♂️💨
+Jumps allow flexible code execution. 🏃‍♂️💨
+
+Example: **Compiling an `if-else` statement**
+
+```c
+if (i == j) f = g + h;
+else f = g - h;
+```
+
+MIPS equivalent:
+
+```assembly
+bne $s3, $s4, Else
+add $s0, $s1, $s2
+j Exit
+
+Else:
+sub $s0, $s1, $s2
+
+Exit:
+```
 
 ---
 
-### ✨ **Quick Summary:**
+## 🔁 **Loop Statements in MIPS**
 
-- **Shift Operations (`sll`, `srl`)**: Move bits to the left or right for **multiplication** or **division**.
-- **AND Operations**: Mask bits to clear or select them.
-- **OR & NOR Operations**: Toggle bits and invert values.
-- **Branching**: Jump to different code sections based on conditions, making your program **dynamic**.
+Example: **Compiling a `while` loop**
+
+```c
+while (save[i] == k) i += 1;
+```
+
+**MIPS equivalent:**
+
+```assembly
+Loop:
+sll $t1, $s3, 2        # Multiply i by 4 (word size)
+add $t1, $t1, $s6      # Get address of save[i]
+lw $t0, 0($t1)         # Load save[i] into $t0
+bne $t0, $s5, Exit     # If save[i] != k, exit loop
+addi $s3, $s3, 1       # i += 1
+j Loop                 # Repeat the loop
+
+Exit:
+```
+
+---
+
+## ⚡ **More Conditional Operations**
+
+- **Set result to `1` if condition is true, otherwise `0`.**
+
+```assembly
+slt rd, rs, rt  # if (rs < rt) rd = 1 else rd = 0
+```
+
+```assembly
+slti rt, rs, constant  # if (rs < constant) rt = 1 else rt = 0
+```
+
+Example with branching:
+
+```assembly
+slt $t0, $s1, $s2 # if ($s1 < $s2)
+bne $t0, $zero, L # branch to L
+```
+
+---
+
+## 🔢 **Signed vs Unsigned Comparisons**
+
+| **Comparison** | **Signed (`slt, slti`)** | **Unsigned (`sltu, sltui`)** |
+| -------------- | ------------------------ | ---------------------------- |
+| -1 vs 1        | `slt = 1` (True)         | `sltu = 0` (False)           |
+| Max value      | `slt = 1` (True)         | `sltu = 0` (False)           |
+
+Example:
+
+```assembly
+sltu $t0, $s0, $s1  # Compare unsigned numbers
+```
+
+---
+
+## 🏗 **Register Usage in MIPS**
+
+| Register    | Purpose                           |
+| ----------- | --------------------------------- |
+| `$a0 - $a3` | Arguments (Registers 4-7)         |
+| `$v0, $v1`  | Return values (Registers 2-3)     |
+| `$t0 - $t9` | Temporary registers (8-15, 24-25) |
+| `$s0 - $s7` | Saved registers (16-23)           |
+| `$gp`       | Global pointer (Register 28)      |
+| `$sp`       | Stack pointer (Register 29)       |
+| `$fp`       | Frame pointer (Register 30)       |
+| `$ra`       | Return address (Register 31)      |
+
+---
+
+## 🔄 **Procedure Call Instructions**
+
+### **Jump and Link (`jal`)**
+
+```assembly
+jal ProcedureLabel  # Save return address and jump
+```
+
+- Saves the return address in `$ra`.
+- Jumps to `ProcedureLabel`.
+
+### **Return from Procedure (`jr`)**
+
+```assembly
+jr $ra  # Return to caller
+```
+
+- Copies `$ra` to the **program counter**.
+- Used for function returns and switch statements.
