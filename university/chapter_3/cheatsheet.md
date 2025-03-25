@@ -37,11 +37,11 @@ mfhi $t1  # $t1 = Remainder
 ## **🛠️ Logical & Shift Operations**
 
 | Instruction         | Operation              | Example             | Description                       |
-| ------------------- | ---------------------- | ------------------- | --------------------------------- | ----- |
+| ------------------- | ---------------------- | ------------------- | --------------------------------- |
 | `and rd, rs, rt`    | AND                    | `and $t0, $t1, $t2` | `$t0 = $t1 & $t2`                 |
-| `or rd, rs, rt`     | OR                     | `or $t0, $t1, $t2`  | `$t0 = $t1                        | $t2`  |
+| `or rd, rs, rt`     | OR                     | `or $t0, $t1, $t2`  | `$t0 = $t1 (OR) $t2`              |
 | `xor rd, rs, rt`    | XOR                    | `xor $t0, $t1, $t2` | `$t0 = $t1 ^ $t2`                 |
-| `nor rd, rs, rt`    | NOR                    | `nor $t0, $t1, $t2` | `$t0 = ~($t1                      | $t2)` |
+| `nor rd, rs, rt`    | NOR                    | `nor $t0, $t1, $t2` | `$t0 = ~($t1 (NOR) $t2)`          |
 | `sll rd, rt, shamt` | Logical Shift Left     | `sll $t0, $t1, 2`   | `$t0 = $t1 << 2`                  |
 | `srl rd, rt, shamt` | Logical Shift Right    | `srl $t0, $t1, 2`   | `$t0 = $t1 >> 2` (fills with 0s)  |
 | `sra rd, rt, shamt` | Arithmetic Shift Right | `sra $t0, $t1, 2`   | `$t0 = $t1 >> 2` (keeps sign bit) |
