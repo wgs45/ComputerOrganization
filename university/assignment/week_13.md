@@ -72,8 +72,8 @@ We’re focusing on the **first 5 cycles**—the most magical part where forward
 
 ## 🧁 TL;DR — Sparkle Recap 🌟
 
-✔️ **Forwarding** helps avoid stalling by passing results directly between pipeline stages like a helpful fairy\~ 🧚
-✔️ **Hazard Detection Unit** watches closely for risky moments when data dependencies might break the flow\~
-✔️ In this 5-cycle journey, thanks to forwarding, **no stalls were needed** 💪✨
+- ✔️ **Forwarding** helps avoid stalling by passing results directly between pipeline stages like a helpful fairy\~ 🧚
+- ✔️ **Hazard Detection Unit** watches closely for risky moments when data dependencies might break the flow\~
+- ✔️ In this 5-cycle journey, thanks to forwarding, **no stalls were needed** 💪✨
 
 > 📌 Forwarding isn’t just helpful… it's **essential** for efficient pipelined execution! Like teamwork in a magical guild\~ 🌟🛡️
